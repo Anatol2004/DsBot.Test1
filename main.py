@@ -16,7 +16,7 @@ async def on_ready():
 
 @bot.event
 async def on_member_join(member):
-    role = await disnake.utils.get(guilds_id = member.guild.roles, id = 1339661075682951239)
+    role = await disnake.utils.get(member.guild.roles, id = 1339661075682951239)
     channel = member.guild.system_channel
 
     embed = disnake.Embed(
@@ -41,7 +41,7 @@ async def on_message(message):
 
 
 @bot.command()
-@commands.has_permissions(kick_members = True, administratior = True)
+@commands.has_permissions(kick_members = True, administrator = True)
 async def kick(ctx, member: disnake.Member, *, reason = "Нарушение правил."):
     await ctx.send(f"Администратор {ctx.author.mention} исключил пользователя {member.mention}", delete_after = 60)
     await member.kick(reason = reason)
@@ -49,7 +49,7 @@ async def kick(ctx, member: disnake.Member, *, reason = "Нарушение пр
 
 
 @bot.command(name = "бан", aliases = ["баня", "банан"])
-@commands.has_permissions(ban_members = True, administratior = True)
+@commands.has_permissions(ban_members = True, administrator = True)
 async def ban(ctx, member: disnake.Member, *, reason = "Нарушение правил."):
     await ctx.send(f"Администратор {ctx.author.mention} забанил пользователя {member.mention}", delete_after = 60)
     await member.ban(reason = reason)
