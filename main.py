@@ -1,4 +1,3 @@
-from encodings.aliases import aliases
 import functions
 
 
