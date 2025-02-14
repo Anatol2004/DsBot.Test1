@@ -74,7 +74,7 @@ async def ban(ctx, member: disnake.Member, *, reason="Нарушение пра�
 
 
 # endregion
-# region Функция слэш-команды "calculator" (Плохо работает)
+# region Функция слэш-команды "calculator" (плохо работает)
 @bot.slash_command(description="Простой калькулятор.")
 async def calculator(inter, a: int, oper: str, b: int):
     if oper == "+":
