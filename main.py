@@ -4,31 +4,34 @@ import disnake
 from discord.app_commands import guilds
 from disnake.ext import commands
 
-bot = commands.Bot(command_prefix = "!pbot1", help_command = None, intents = disnake.Intents.all())
+bot = commands.Bot(command_prefix="!pbot1", help_command=None, intents=disnake.Intents.all())
 
 CENSORED_WORDS = ["apple", "bye", "amogus"]
 
 
+# Функция включения бота-------------------
 @bot.event
 async def on_ready():
     print(f"{bot.user} готов к работе.")
 
 
+# Функция подключения нового участника на сервер----------------------------------
 @bot.event
 async def on_member_join(member):
-    role = await disnake.utils.get(member.guild.roles, id = 1339661075682951239)
+    role = await disnake.utils.get(member.guild.roles, id=1339661075682951239)
     channel = member.guild.system_channel
 
     embed = disnake.Embed(
-        title = "Новый участник!",
-        description = f"{member.name}",
-        color = 0xffffff
+        title="Новый участник!",
+        description=f"{member.name}",
+        color=0xffffff
     )
 
     await member.add_roles(role)
-    await channel.send(embed = embed)
+    await channel.send(embed=embed)
 
 
+# Функция фильтрации сообщений-----------------------------------------------------------------------------
 @bot.event
 async def on_message(message):
     await bot.process_commands(message)
@@ -40,19 +43,21 @@ async def on_message(message):
                 await message.channel.send(f"{message.author.mention} такие слова запрещены, хуесос.")
 
 
+# Функция команды "kick"------------------------------------------------------------------------------------------
 @bot.command()
-@commands.has_permissions(kick_members = True, administrator = True)
-async def kick(ctx, member: disnake.Member, *, reason = "Нарушение правил."):
-    await ctx.send(f"Администратор {ctx.author.mention} исключил пользователя {member.mention}", delete_after = 60)
-    await member.kick(reason = reason)
+@commands.has_permissions(kick_members=True, administrator=True)
+async def kick(ctx, member: disnake.Member, *, reason="Нарушение правил."):
+    await ctx.send(f"Администратор {ctx.author.mention} исключил пользователя {member.mention}", delete_after=60)
+    await member.kick(reason=reason)
     await ctx.message.delete()
 
 
-@bot.command(name = "бан", aliases = ["баня", "банан"])
-@commands.has_permissions(ban_members = True, administrator = True)
-async def ban(ctx, member: disnake.Member, *, reason = "Нарушение правил."):
-    await ctx.send(f"Администратор {ctx.author.mention} забанил пользователя {member.mention}", delete_after = 60)
-    await member.ban(reason = reason)
+# Функция команды "ban"-----------------------------------------------------------------------------------------
+@bot.command()
+@commands.has_permissions(ban_members=True, administrator=True)
+async def ban(ctx, member: disnake.Member, *, reason="Нарушение правил."):
+    await ctx.send(f"Администратор {ctx.author.mention} забанил пользователя {member.mention}", delete_after=60)
+    await member.ban(reason=reason)
     await ctx.message.delete()
 
 
