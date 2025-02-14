@@ -4,7 +4,7 @@ import disnake
 from discord.app_commands import guilds
 from disnake.ext import commands
 
-bot = commands.Bot(command_prefix = "!pbot1", help_command = None, intents = disnake.Intents.all())
+bot = commands.Bot(command_prefix = "tb1", help_command = None, intents = disnake.Intents.all())
 
 CENSORED_WORDS = ["apple", "bye", "amogus"]
 
@@ -37,7 +37,7 @@ async def on_message(message):
         for censored_word in CENSORED_WORDS:
             if content.lower() == censored_word:
                 await message.delete()
-                await message.channel.send(f"{message.author.mention} такие слова запрещены, хуесос.")
+                await message.channel.send(f"{message.author.mention} такие слова запрещены, хуесос.", delete_after = 10)
 
 
 @bot.command()
